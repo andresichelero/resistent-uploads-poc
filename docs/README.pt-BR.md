@@ -1,7 +1,12 @@
-# Resume Proof — uploads com pausa e retomada
+# Resumable Uploads — prova de conceito
 
-Uma demonstração local de recuperação de uploads após perda de conexão, com
-vários arquivos simultâneos, comparação SHA-256 e antivírus opcional.
+Uma prova de conceito (PoC) funcional de recuperação de uploads após perda de
+conexão, com vários arquivos simultâneos, comparação SHA-256 e antivírus opcional.
+A interface e o vídeo da demonstração usam o nome **Resume Proof**.
+
+O projeto demonstra decisões de engenharia por meio de código e testes:
+recuperação pelo estado confirmado no servidor, persistência após reinício,
+processamento em streaming e separação entre integridade e análise de malware.
 
 ```sh
 docker compose up --build -d --wait

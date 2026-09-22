@@ -1,10 +1,14 @@
-# Resume Proof
+# Resumable Uploads — Proof of Concept
 
 **Pause the upload. Lose the connection. Finish with the same bytes.**
 
-A local transfer workbench demonstrating resumable uploads over tus, S3-compatible
-storage, independent SHA-256 verification, and optional malware quarantine.
-Multiple files can upload at once; each has its own pause and recovery state.
+A working engineering proof of concept (PoC) demonstrating upload recovery after
+connection loss, using tus, S3-compatible storage, independent SHA-256 verification,
+and optional malware quarantine. Multiple files can upload at once; each has its
+own pause and recovery state. The demo interface and video use the name **Resume Proof**.
+
+The focus is on failure handling and verifiable results: server-authoritative
+recovery, durable state, streaming I/O, and tests that interrupt real transfers.
 
 [![Verify recovery](https://github.com/andresichelero/resistent-uploads-poc/actions/workflows/ci.yml/badge.svg)](https://github.com/andresichelero/resistent-uploads-poc/actions/workflows/ci.yml)
 [Demo video](https://github.com/andresichelero/resistent-uploads-poc/releases/tag/v1.0.0) ·
@@ -65,6 +69,17 @@ confirmed by the server. An ETA estimates transfer time, not hash or scan time.
 - Optional real ClamAV: clean, detected, inconclusive and unavailable are separate.
 - Private storage, gated downloads, idempotent deletion and 24-hour cleanup.
 - Real failure tests: lost response, offline browser, restart and conflicting writes.
+
+## Engineering focus
+
+- **Recovery semantics:** reconcile confirmed offsets after ambiguous failures;
+  preserve explicit pauses and verify reselected content before resuming.
+- **Backend design:** separate transfer, metadata and verification; recover pending
+  work after restart and keep deletion idempotent.
+- **Verification boundaries:** distinguish content integrity from malware verdicts
+  and block downloads when required checks fail or remain inconclusive.
+- **Reproducible evidence:** inject network and process failures, then compare
+  final hashes and measured request-body bytes. See the [results](docs/evidence.md).
 
 ```mermaid
 flowchart LR
