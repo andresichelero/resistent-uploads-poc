@@ -1,0 +1,30 @@
+[
+  {
+    "seconds": 2,
+    "event": "Local workbench, integrity mode"
+  },
+  {
+    "seconds": 13,
+    "event": "Two independent transfers start"
+  },
+  {
+    "seconds": 22,
+    "event": "Manual pause preserves confirmed bytes"
+  },
+  {
+    "seconds": 29,
+    "event": "Real transport failure: PATCH request failed"
+  },
+  {
+    "seconds": 33,
+    "event": "Connection restored; reconcile remote offset"
+  },
+  {
+    "seconds": 51,
+    "event": "Stored file verified independently"
+  },
+  {
+    "seconds": 55,
+    "event": "Downloaded file matches original SHA-256"
+  }
+]

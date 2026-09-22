@@ -6,12 +6,15 @@ estimates, a reproducible fault suite and public English/PT-BR presentation.
 
 ## Delivery sequence
 
-- [ ] Bootstrap pinned Compose services, TypeScript tooling and CI.
-- [ ] Implement streaming gateway, persistent records, reconciliation and cleanup.
-- [ ] Implement concurrent browser uploads, pause/reselection, hashing and ETA.
-- [ ] Add optional ClamAV quarantine with fail-closed download policy.
-- [ ] Exercise transport failures, restart, integrity, scanner and browser flows.
-- [ ] Publish concise documentation, measured evidence, video and release via PR.
+- [x] Bootstrap pinned Compose services, TypeScript tooling and CI.
+- [x] Implement streaming gateway, persistent records, reconciliation and cleanup.
+- [x] Implement concurrent browser uploads, pause/reselection, hashing and ETA.
+- [x] Add optional ClamAV quarantine with fail-closed download policy.
+- [x] Exercise transport failures, restart, integrity, scanner and browser flows.
+- [x] Prepare concise documentation, measured evidence and the release video.
+
+Publication is tracked in pull request #1 and the v1.0.0 release. Tests and
+reference-run provenance are documented in `evidence.md`.
 
 ## Boundaries
 
