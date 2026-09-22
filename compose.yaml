@@ -62,6 +62,12 @@ services:
     profiles: ['antivirus']
     volumes: ['signatures:/var/lib/clamav', './infra/clamd.conf:/etc/clamav/clamd.conf:ro']
     mem_limit: 4g
+    healthcheck:
+      test: ['CMD', 'clamdscan', '--config-file=/etc/clamav/clamd.conf', '--ping', '1']
+      interval: 10s
+      timeout: 5s
+      retries: 24
+      start_period: 30s
 volumes:
   records:
   objects:
