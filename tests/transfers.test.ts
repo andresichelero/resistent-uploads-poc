@@ -28,6 +28,33 @@ const record = (id: string, url: string | null): PublicUpload => ({
   url,
 });
 afterEach(() => vi.unstubAllGlobals());
+it('preserves deletion intent for completed files when only polling recovers', async () => {
+  const transfers = new Transfers();
+  const id = crypto.randomUUID();
+  const done: PublicUpload = {
+    ...record(id, '/files/remote'),
+    integrity: 'verified',
+    downloadable: true,
+  };
+  let deletes = 0;
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async (_url: string, init?: RequestInit) => {
+      if (init?.method === 'DELETE') {
+        deletes++;
+        if (deletes === 1) throw new Error('service offline');
+        return new Response(null, { status: 204 });
+      }
+      return Response.json([done]);
+    }),
+  );
+  await transfers.refresh();
+  await transfers.remove(id);
+  expect(transfers.items[0].phase).toBe('deleting');
+  await transfers.refresh();
+  await vi.waitFor(() => expect(transfers.items).toHaveLength(0));
+  expect(deletes).toBe(2);
+});
 it('retries creation when polling recovered a record with no tus URL', async () => {
   const transfers = new Transfers();
   let id = '',

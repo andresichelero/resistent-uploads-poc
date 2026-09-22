@@ -90,7 +90,7 @@ export class Transfers {
         this.items.push(r);
       }
       let phase = r.phase;
-      if (record.deleting) phase = 'deleting';
+      if (r.phase === 'deleting' || record.deleting) phase = 'deleting';
       else if (record.integrity !== 'pending')
         phase = record.downloadable
           ? 'done'
