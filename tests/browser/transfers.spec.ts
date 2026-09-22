@@ -44,21 +44,17 @@ test('concurrent files, pause across offline, reload identity and verified downl
   await expect(main.getByRole('button', { name: 'Pause', exact: true })).toHaveCount(0);
   await page.reload();
   await expect(main.getByRole('button', { name: 'Select original file' })).toBeVisible();
-  await main
-    .getByLabel('Reselect landscape.raw')
-    .setInputFiles({
-      name: 'landscape.raw',
-      mimeType: 'application/octet-stream',
-      buffer: Buffer.alloc(original.length, 42),
-    });
+  await main.getByLabel('Reselect landscape.raw').setInputFiles({
+    name: 'landscape.raw',
+    mimeType: 'application/octet-stream',
+    buffer: Buffer.alloc(original.length, 42),
+  });
   await expect(main.getByText('Different content.', { exact: false })).toBeVisible();
-  await main
-    .getByLabel('Reselect landscape.raw')
-    .setInputFiles({
-      name: 'landscape.raw',
-      mimeType: 'application/octet-stream',
-      buffer: original,
-    });
+  await main.getByLabel('Reselect landscape.raw').setInputFiles({
+    name: 'landscape.raw',
+    mimeType: 'application/octet-stream',
+    buffer: original,
+  });
   await expect(main.getByRole('button', { name: 'Download & verify' })).toBeVisible({
     timeout: 65000,
   });
@@ -85,13 +81,11 @@ test('real offline interruption resumes from a positive server offset', async ({
     downloadThroughput: -1,
     uploadThroughput: 1024 * 1024,
   });
-  await page
-    .getByLabel('Choose files', { exact: true })
-    .setInputFiles({
-      name: 'connection-test.bin',
-      mimeType: 'application/octet-stream',
-      buffer: Buffer.alloc(24 * 1024 * 1024, 59),
-    });
+  await page.getByLabel('Choose files', { exact: true }).setInputFiles({
+    name: 'connection-test.bin',
+    mimeType: 'application/octet-stream',
+    buffer: Buffer.alloc(24 * 1024 * 1024, 59),
+  });
   const row = page.getByRole('article', { name: 'connection-test.bin', exact: true });
   await expect
     .poll(async () => (await (await page.request.get('/api/uploads')).json())[0]?.offset || 0, {
