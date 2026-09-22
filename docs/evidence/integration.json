@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-09-22T22:31:48.722Z",
+  "results": [
+    {
+      "scenario": "concurrent uploads, offset conflict and independent hashes",
+      "durationMs": 2355,
+      "detail": [
+        {
+          "bytes": 12582912,
+          "sha256": "b52ba354c7540134597e2dbe27701c52295893d8cc0b3127546f31103fa5f920"
+        },
+        {
+          "bytes": 10485760,
+          "sha256": "4e6bf70e8c608480822c71bf375c2b03be8e6101a4287167d49f82ed000a6e6f"
+        }
+      ]
+    },
+    {
+      "scenario": "lost response after accepted PATCH; measured restart comparison",
+      "durationMs": 2903,
+      "detail": {
+        "originalBytes": 16777216,
+        "recoveredOffset": 8388608,
+        "resumedBodyBytes": 16777216,
+        "restartedBodyBytes": 25165824,
+        "boundary": "PATCH body bytes received by the test HTTP proxy; excludes HTTP headers and TCP retransmission",
+        "sha256": "723706eb9c3dfd0f42ddef9c04464051b6d8ca4533614201d6bccc666beb9354"
+      }
+    },
+    {
+      "scenario": "same-resource concurrent PATCH requests serialize without corruption",
+      "durationMs": 1093,
+      "detail": {
+        "bytes": 10485760,
+        "recoveredOffset": 414611,
+        "statuses": [400, 409]
+      }
+    },
+    {
+      "scenario": "process restart preserves confirmed data",
+      "durationMs": 5263,
+      "detail": {
+        "recoveredOffset": 8388608,
+        "sha256": "d57169ac2edfac6a9b71ea4ee43084b73601d3a967c507d1968ef32287a51b5f"
+      }
+    },
+    {
+      "scenario": "hash mismatch blocks download and raw tus GET",
+      "durationMs": 611,
+      "detail": {
+        "blocked": true
+      }
+    },
+    {
+      "scenario": "empty file, size limit, origin policy and cancellation",
+      "durationMs": 730,
+      "detail": {
+        "emptySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cancellationConfirmed": true
+      }
+    },
+    {
+      "scenario": "storage outage never reports success",
+      "durationMs": 9113,
+      "detail": {
+        "recovered": true
+      }
+    }
+  ]
+}

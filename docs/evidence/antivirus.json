@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-09-22T22:36:12.734Z",
+  "results": [
+    {
+      "scenario": "clean file is verified and downloadable",
+      "scan": "clean",
+      "scannerVersion": "ClamAV 1.5.4/28131/Tue Sep 22 06:27:06 2026",
+      "detail": "stream: OK"
+    },
+    {
+      "scenario": "official EICAR fixture is quarantined",
+      "scan": "detected",
+      "scannerVersion": "ClamAV 1.5.4/28131/Tue Sep 22 06:27:06 2026",
+      "detail": "stream: Eicar-Test-Signature FOUND"
+    },
+    {
+      "scenario": "encrypted archive is inconclusive and blocked",
+      "scan": "inconclusive",
+      "scannerVersion": "ClamAV 1.5.4/28131/Tue Sep 22 06:27:06 2026",
+      "detail": "stream: Heuristics.Encrypted.Zip FOUND"
+    },
+    {
+      "scenario": "scanner outage fails closed",
+      "scan": "error",
+      "scannerVersion": null,
+      "detail": "Scanner unavailable or timed out. Download remains blocked; retry verification."
+    },
+    {
+      "scenario": "retry after scanner recovery",
+      "scan": "clean",
+      "scannerVersion": "ClamAV 1.5.4/28131/Tue Sep 22 06:27:06 2026",
+      "detail": "stream: OK"
+    }
+  ]
+}

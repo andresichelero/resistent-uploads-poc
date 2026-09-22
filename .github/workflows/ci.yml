@@ -1,0 +1,46 @@
+name: Verify recovery
+on:
+  push:
+    branches: [main, 'feat/**', 'fix/**']
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.14.0'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: docker compose up --build -d --wait
+      - run: npm run test:integration
+      - run: npm run test:e2e
+      - name: Start real antivirus profile
+        run: docker compose -f compose.yaml -f compose.antivirus.yaml --profile antivirus up -d --wait --wait-timeout 240
+      - run: npm run test:antivirus
+      - name: Collect service logs
+        if: always()
+        run: |
+          mkdir -p artifacts
+          docker compose --profile antivirus logs --no-color > artifacts/services.log
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: verification-evidence
+          path: |
+            artifacts/
+            playwright-report/
+            test-results/
+          retention-days: 14
+      - name: Stop disposable test services
+        if: always()
+        run: docker compose --profile antivirus down
