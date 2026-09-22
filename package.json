@@ -1,0 +1,44 @@
+{
+  "name": "resistent-uploads-poc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "start": "tsx server/index.ts",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:integration": "node --import tsx scripts/integration.ts",
+    "check": "npm run typecheck && npm run lint && npm test && npm run build"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.1137.0",
+    "@fastify/http-proxy": "11.6.2",
+    "@fastify/static": "10.1.4",
+    "fastify": "5.12.5",
+    "hash-wasm": "4.12.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tus-js-client": "4.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "@types/node": "26.6.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "eslint": "10.11.0",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.70.1",
+    "vite": "8.3.0",
+    "vitest": "5.0.1"
+  }
+}

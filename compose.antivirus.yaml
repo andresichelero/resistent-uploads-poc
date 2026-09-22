@@ -1,0 +1,4 @@
+services:
+  app:
+    environment:
+      SCAN_REQUIRED: 'true'
